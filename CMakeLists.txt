@@ -12,6 +12,8 @@ add_executable(arabic-engine ${sources})
 
 enable_testing()
 
-add_executable(test_hashtable tests/test_hashtable.cpp src/HashTable.cpp)
+add_executable(test_tree tests/test_tree.cpp src/tree.cpp)
+add_test(NAME TreeImplTest COMMAND test_tree)
 
+add_executable(test_hashtable tests/test_hashtable.cpp src/HashTable.cpp)
 add_test(NAME HashTest COMMAND test_hashtable)
