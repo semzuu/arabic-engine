@@ -18,7 +18,7 @@ add_executable(test_hashtable
 add_executable(test_engine
 	tests/test_engine.cpp 
 	src/MorphEngine.cpp 
-	src/AVLTree.cpp
+	src/Tree.cpp
 	src/HashTable.cpp
 )
 

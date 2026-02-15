@@ -4,7 +4,7 @@
 
 class MorphEngine {
 	private:
-		AVLTree roots;
+		Tree roots;
 		HashTable schemes;
 	public:
 		void insertRoot(const std::string& root);
