@@ -3,7 +3,7 @@
 
 int main() {
 	HashTable h;
-	h.insert({"فاعل", "_ا_ل"});
+	h.insert({"فاعل", L"#ا##"});
 	assert(h.find("فاعل"));
 	h.remove("فاعل");
 	assert(!h.find("فاعل"));

@@ -1,50 +1,38 @@
 #include "MorphEngine.hpp"
 #include <cassert>
 #include <iostream>
+#include <string>
 
 int main() {
-
-	MorphEngine engine;
-	
+	MorphEngine engine;	
 	std::cout << "Inserting root: كتب\n";
 	engine.insertRoot("كتب");
 	
-	// Test before adding scheme
-	std::string tmp1 = engine.generateWord("كتب", "مفعول");
-	std::cout << "generateWord('كتب', 'مفعول') before adding scheme: " << tmp1 << std::endl;
-	assert(tmp1 == "Scheme Not Found or Invalid Root Length!"); // should be empty
+	std::wstring tmp1 = engine.generateWord(L"كتب", "مفعول");
+	assert(tmp1 == L"Scheme Not Found!");
 	
 	std::cout << "Adding schemes...\n";
-	engine.addScheme({"مفعول", "م_ت_و_"});
-	engine.addScheme({"فاعل", "_ا_ل"});
+	engine.addScheme({"مفعول", L"م##و#"});
+	engine.addScheme({"فاعل", L"#ا##"});
 	
-	// Test generateWord for each scheme
-	std::string word1 = engine.generateWord("كتب", "مفعول");
-	std::cout << "generateWord('كتب', 'مفعول') = " << word1 << std::endl;
-	assert(word1 == "مكتوب");
+	std::wstring word1 = engine.generateWord(L"كتب", "مفعول");
+	assert(word1 == L"مكتوب");
 	
-	std::string word2 = engine.generateWord("كتب", "فاعل");
-	std::cout << "generateWord('كتب', 'فاعل') = " << word2 << std::endl;
-	assert(word2 == "كاتب");
+	std::wstring word2 = engine.generateWord(L"كتب", "فاعل");
+	assert(word2 == L"كاتب");
 	
-	// Test validation
-	bool val1 = engine.validateWord("مكتوب", "كتب");
-	bool val2 = engine.validateWord("كاتب", "كتب");
+	bool val1 = engine.validateWord(L"مكتوب", L"كتب");
+	bool val2 = engine.validateWord(L"كاتب", L"كتب");
 	
 	std::cout << "validateWord('مكتوب', 'كتب') = " << val1 << std::endl;
 	std::cout << "validateWord('كاتب', 'كتب') = " << val2 << std::endl;
 	
 	assert(val1 == true);
-	assert(val2 == false);
+	assert(val2 == true);
 	
-	// Test generateAllWords
 	std::cout << "Testing generateAllWords('كتب'):\n";
-	auto allWords = engine.generateAllWords("كتب");
-	for (const auto& w : allWords) {
-	    std::cout << "  " << w << std::endl;
-	}
+	auto allWords = engine.generateAllWords(L"كتب");
 	
-	std::cout << "All MorphEngine tests passed successfully.\n";
 	return 0;
 }
 

@@ -3,5 +3,5 @@
 
 struct Scheme {
 	std::string name;
-	std::string pattern;
+	std::wstring pattern;
 };

@@ -1,5 +1,6 @@
 #include "MorphEngine.hpp"
 #include <algorithm>
+#include <iostream>
 
 void MorphEngine::insertRoot(const std::string& root) {
 	roots.insert(root);
@@ -7,22 +8,22 @@ void MorphEngine::insertRoot(const std::string& root) {
 
 void MorphEngine::addScheme(const Scheme& s) {
 	schemes.insert(s);
+	//schemes.show();
 }
 
-std::string MorphEngine::generateWord(const std::string& root, const std::string& schemeName) {
+std::wstring MorphEngine::generateWord(const std::wstring& root, const std::string& schemeName) {
 	Scheme* s = schemes.find(schemeName);
-	if (!s || root.size() != 3) return "Scheme Not Found or Invalid Root Length!";
-
-	std::string result = s->pattern;
+	if (!s) return L"Scheme Not Found!";
+	std::wstring result = s->pattern;
 	int i = 0;
-	for (char& c : result)
-		if (c == '_' && i < 3)
-			c = root[i++];
+	for (auto& c : result) {
+		if (c == L'#') { c = root[i++]; }
+	}
 	return result;
 }
 
-std::list<std::string> MorphEngine::generateAllWords(const std::string& root) {
-	std::list<std::string> result;
+std::list<std::wstring> MorphEngine::generateAllWords(const std::wstring& root) {
+	std::list<std::wstring> result;
 	for (const auto& bucket : schemes.getTable()) {
 		for (const auto& e : bucket) 
 			result.push_back(MorphEngine::generateWord(root, e.name));
@@ -30,7 +31,11 @@ std::list<std::string> MorphEngine::generateAllWords(const std::string& root) {
 	return result;	
 }
 
-bool MorphEngine::validateWord(const std::string& word, const std::string& root) {
-	std::list<std::string> words = generateAllWords(root);
-	return std::find(words.begin(), words.end(), word) != words.end();
+bool MorphEngine::validateWord(const std::wstring& word, const std::wstring& root) {
+	bool found = false;
+	std::list<std::wstring> words = MorphEngine::generateAllWords(root);
+	for (const auto& w : words) {
+		if (w == word) { found = true; break; }
+	}	
+	return found;
 }

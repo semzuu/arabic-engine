@@ -14,4 +14,5 @@ class HashTable {
 		void insert(const Scheme& s);
 		void remove(const std::string& name);
 		Scheme* find(const std::string& name);
+		void show();
 };
