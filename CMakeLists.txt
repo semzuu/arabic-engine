@@ -11,3 +11,6 @@ file(GLOB sources
 add_executable(arabic-engine ${sources})
 
 enable_testing()
+
+add_executable(test_tree tests/test_tree.cpp src/tree.cpp)
+add_test(NAME TreeImplTest COMMAND test_tree)
