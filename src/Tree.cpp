@@ -1,4 +1,5 @@
 #include <Tree.hpp>
+#include <iostream>
 
 Tree::Tree() {
 	root = nullptr;
@@ -35,3 +36,38 @@ Root *Tree::search(const std::string& value) {
 	if (res) return &(res->data);
 	else return nullptr;
 }
+
+void Tree::print() {
+    std::cout << "\n====== ROOT TREE ======\n\n";
+    print_impl(root, "", true);
+    std::cout << "\n=======================\n";
+}
+
+void Tree::print_impl(Node* node, std::string prefix, bool isLeft) {
+    if (!node) return;
+
+    std::cout << prefix;
+
+    std::cout << (isLeft ? "├── " : "└── ");
+
+    // Print root value
+    std::cout << node->data.value;
+
+    // Print derivatives
+    if (!node->data.derivatives.empty()) {
+        std::cout << "  [ ";
+        for (const auto& d : node->data.derivatives) {
+            std::cout << d << " ";
+        }
+        std::cout << "]";
+    }
+
+    std::cout << std::endl;
+
+    // Prepare next level indentation
+    std::string newPrefix = prefix + (isLeft ? "│   " : "    ");
+
+    print_impl(node->left, newPrefix, true);
+    print_impl(node->right, newPrefix, false);
+}
+
