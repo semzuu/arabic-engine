@@ -2,6 +2,10 @@
 
 HashTable::HashTable(size_t size) : table(size) {}
 
+const std::vector<std::list<Scheme>>& getTable() const {
+	return table;
+}
+
 size_t HashTable::hash(const std::string& key) {
 	size_t h = 0;
 

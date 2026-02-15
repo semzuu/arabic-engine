@@ -12,6 +12,15 @@ add_executable(arabic-engine ${sources})
 
 enable_testing()
 
-add_executable(test_hashtable tests/test_hashtable.cpp src/HashTable.cpp)
+add_executable(test_hashtable 
+	tests/test_hashtable.cpp 
+	src/HashTable.cpp)
+add_executable(test_engine
+	tests/test_engine.cpp 
+	src/MorphEngine.cpp 
+	src/AVLTree.cpp
+	src/HashTable.cpp
+)
 
+add_test(NAME EngineTest COMMAND test_engine)
 add_test(NAME HashTest COMMAND test_hashtable)
