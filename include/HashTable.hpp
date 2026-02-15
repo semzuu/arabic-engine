@@ -10,7 +10,9 @@ class HashTable {
 	
 	public:
 		HashTable(size_t size = 10);
+		std::vector<std::list<Scheme>>& getTable();
 		void insert(const Scheme& s);
 		void remove(const std::string& name);
 		Scheme* find(const std::string& name);
+		void show();
 };

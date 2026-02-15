@@ -1,6 +1,11 @@
 #include "HashTable.hpp"
+#include <iostream>
 
 HashTable::HashTable(size_t size) : table(size) {}
+
+std::vector<std::list<Scheme>>& HashTable::getTable() {
+	return table;
+}
 
 size_t HashTable::hash(const std::string& key) {
 	size_t h = 0;
@@ -29,4 +34,14 @@ Scheme* HashTable::find(const std::string& name) {
 	for (auto& s : bucket)
 		if (s.name == name) return &s;
 	return nullptr;
+}
+
+void HashTable::show() {
+	int i = 0;
+	for (const auto& bucket : table) {
+		std::cout << "Hash: " << i++ << std::endl;
+		for (const auto& e : bucket) {
+			std::cout << "Scheme Name: " << e.name << std::endl;
+		}
+	}
 }

@@ -1,4 +1,4 @@
-#include <tree.hpp>
+#include <Tree.hpp>
 
 Tree::Tree() {
 	root = nullptr;

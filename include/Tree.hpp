@@ -1,6 +1,6 @@
 #pragma once
 
-#include "root.hpp"
+#include "Root.hpp"
 
 struct Node {
 	Root data;
