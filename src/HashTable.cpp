@@ -2,7 +2,7 @@
 
 HashTable::HashTable(size_t size) : table(size) {}
 
-const std::vector<std::list<Scheme>>& getTable() const {
+std::vector<std::list<Scheme>>& HashTable::getTable() {
 	return table;
 }
 

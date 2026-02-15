@@ -21,6 +21,11 @@ add_executable(test_engine
 	src/Tree.cpp
 	src/HashTable.cpp
 )
+add_executable(test_tree 
+	tests/test_tree.cpp 
+	src/Tree.cpp)
 
 add_test(NAME EngineTest COMMAND test_engine)
 add_test(NAME HashTest COMMAND test_hashtable)
+add_test(NAME TreeImplTest COMMAND test_tree)
+
