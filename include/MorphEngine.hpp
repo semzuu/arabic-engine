@@ -3,11 +3,10 @@
 #include "HashTable.hpp"
 
 class MorphEngine {
-	private:
+	public:	
 		Tree roots;
 		HashTable schemes;
 		
-	public:	
 		void insertRoot(const std::string& root);
 		void addScheme(const Scheme& s);
 		std::wstring generateWord(const std::wstring& root, const std::string& scheme);
