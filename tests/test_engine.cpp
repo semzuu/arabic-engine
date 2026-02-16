@@ -6,10 +6,10 @@
 int main() {
 	// Insert some roots
 	MorphEngine engine;	
-	engine.insertRoot("كتب");
-	engine.insertRoot("خرط");
-	engine.insertRoot("عصب");
-	engine.insertRoot("نكح");
+	//engine.insertRoot("كتب");
+	//engine.insertRoot("خرط");
+	//engine.insertRoot("عصب");
+	//engine.insertRoot("نكح");
 	// 1 - Trying to generate a word before providing the scheme	
 	std::cout << "<---Generate a word before giving the scheme--->" << std::endl;
 	std::wstring tmp1 = engine.generateWord(L"كتب", "مفعول");

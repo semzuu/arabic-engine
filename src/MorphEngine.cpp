@@ -26,10 +26,10 @@ std::wstring MorphEngine::generateWord(const std::wstring& root, const std::stri
 	std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;	
 	// Add the root if it's missing from the tree
 	std::string r = converter.to_bytes(root);	
-	Root* p = roots.search(converter.to_bytes(root));
+	Root* p = roots.search(r);
 	if (!p) {
 		insertRoot(r);
-		Root* p = roots.search(r);
+		p = roots.search(r);
 	}
 	// Update the root derivatives list 
 	std::string res = converter.to_bytes(result);	
