@@ -16,4 +16,6 @@ public:
 	Tree();
 	void insert(const std::string& value);
 	Root *search(const std::string& value);
+	void print();
+	void print_impl(Node *node, std::string prefix, bool isLeft);
 };
