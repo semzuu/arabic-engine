@@ -8,7 +8,7 @@ class MorphEngine {
 		Tree roots;
 		void insertRoot(const std::string& root);
 		void addScheme(const Scheme& s);
-		std::wstring generateWord(const std::wstring& root, const std::string& scheme);
+		std::wstring generateWord(const std::wstring& root, const std::string& scheme, bool updateRoots);
 		std::list<std::wstring> generateAllWords(const std::wstring& root);
 		bool validateWord(const std::wstring& word, const std::wstring& root);	
 };

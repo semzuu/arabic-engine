@@ -12,7 +12,7 @@ int main() {
 	//engine.insertRoot("نكح");
 	// 1 - Trying to generate a word before providing the scheme	
 	std::cout << "<---Generate a word before giving the scheme--->" << std::endl;
-	std::wstring tmp1 = engine.generateWord(L"كتب", "مفعول");
+	std::wstring tmp1 = engine.generateWord(L"كتب", "مفعول", true);
 	engine.roots.print(); // Print Tree
 	assert(tmp1 == L"Scheme Not Found!");
 	// 2 - Adding schemes and testing word generation	
@@ -20,10 +20,10 @@ int main() {
 	engine.addScheme({"مفعول", L"م##و#"});
 	engine.addScheme({"فاعل", L"#ا##"});
 	
-	std::wstring word1 = engine.generateWord(L"خرط", "مفعول");
+	std::wstring word1 = engine.generateWord(L"خرط", "مفعول", true);
 	assert(word1 == L"مخروط");
 		
-	std::wstring word2 = engine.generateWord(L"عصب", "مفعول");
+	std::wstring word2 = engine.generateWord(L"عصب", "مفعول", true);
 	assert(word2 == L"معصوب");
 
 	engine.roots.print(); // Print Tree
