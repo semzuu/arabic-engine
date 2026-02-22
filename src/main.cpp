@@ -1,68 +1,44 @@
 #include <iostream>
 #include <string>
 #include <MorphEngine.hpp>
+#include <utils.hpp>
 
-#include <locale>
-#include <codecvt>
+MorphEngine engine;
 
-std::wstring utf8_to_wstring(const std::string &s) {
-    std::wstring_convert<std::codecvt_utf8<wchar_t>> conv;
-    return conv.from_bytes(s);
-}
-std::string wstring_to_utf8(const std::wstring &w) {
-    std::wstring_convert<std::codecvt_utf8<wchar_t>> conv;
-    return conv.to_bytes(w);
-}
-
-std::string selectScheme(MorphEngine engine) {
-	std::cout << "Available schemes:" << std::endl;
-	engine.schemes.show();
-	std::string selected;
-	std::cout << "Type a scheme > "; std::cin >> selected;
-	return selected;
-}
-
-void mainMenu() {
-	std::cout <<
-		"0. Exit\n"
-		"1. Validate a word\n"
-		"2. Generate a word from root\n"
-		"3. Modify schemes\n"
-		"4. History\n"
-		"Choose an option > ";
-}
-
-void generateMenu() {
-	// TODO: COME BACK LATER
-	std::cout <<
-		"0. Cancel\n"
-		"1. Add a scheme\n"
-		"2. Generate word from root\n"
-		"Choose an option > ";
-}
-
-void schemeMenu() {
-	std::cout <<
-		"0. Cancel\n"
-		"1. Add a scheme\n"
-		"2. Delete a scheme\n"
-		"3. Modify a scheme\n"
-		"Choose an option > ";
-}
-
-void print(Node *node) {
-	if (node) {
-		std::cout << node->data.value << "\n";
-		for (int i = 0; i < node->data.derivatives.size(); i++) {
-			std::cout << node->data.derivatives[i] << "\n";
+void generateWord() {
+	bool done = false;
+	int choice;
+	std::string root;
+	std::vector<std::string> schemes;
+	std::cout << "root > "; std::cin >> root;
+	while (!done) {
+		generateMenu(root, schemes);
+		std::cin >> choice;
+		switch (choice) {
+			case 3: {
+				done = true;
+				break;
+			}
+			case 1: {
+				std::string scheme = selectScheme(engine);
+				schemes.push_back(scheme);
+				break;
+			}
+			case 2: {
+				std::string scheme = selectScheme(engine);
+				// TODO: remove scheme from table
+				//schemes.remove(scheme);
+				break;
+			}
 		}
-		print(node->left);
-		print(node->right);
+	}
+	for (std::string scheme : schemes) {
+		std::wstring res = engine.generateWord(utf8_to_wstring(root), scheme, true);
+		std::cout << scheme << ": " << wstring_to_utf8(res) << std::endl;
 	}
 }
 
 int main() {
-	MorphEngine engine;
 	//engine.addScheme({"فاعل", L"#ا##"});
 	//engine.addScheme({"مفعول", L"م##و#"});
 	bool quit = false;
@@ -72,9 +48,11 @@ int main() {
 		std::cin >> choice;
 		switch(choice) {
 			case 0:
+				// Exit
 				quit = true;
 				break;
 			case 1: {
+				// Validate a word
 				std::string word, root;
 				std::cout << "word > "; std::cin >> word;
 				std::cout << "root > "; std::cin >> root;
@@ -84,14 +62,12 @@ int main() {
 				break;
 			}
 			case 2: {
-				std::string root, scheme;
-				std::cout << "root > "; std::cin >> root;
-				std::cout << "scheme > "; std::cin >> scheme;
-				std::wstring res = engine.generateWord(utf8_to_wstring(root), scheme, true);
-				std::cout << wstring_to_utf8(res) << std::endl;
+				// Generate a word from root
+				generateWord();
 				break;
 			}
 			case 3: {
+				// Modify schemes
 				schemeMenu();
 				std::cin >> choice;
 				switch(choice) {
@@ -128,6 +104,7 @@ int main() {
 				break;
 			}
 			case 4: {
+				// History
 				std::cout << "BEGIN HISTORY" << "\n";
 				engine.roots.print();
 				std::cout << "END HISTORY" << std::endl;
