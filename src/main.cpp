@@ -4,7 +4,7 @@
 #include <utils.hpp>
 #include <webview/webview.h>
 #include <filesystem>
-#include <picojson.h>
+#include <bindings.hpp>
 
 MorphEngine engine;
 
@@ -51,6 +51,7 @@ int main() {
 		webview::webview w(true, nullptr);
 		w.set_title("Arabic Morphological Engine");
 		w.set_size(800, 600, WEBVIEW_HINT_NONE);
+		registerBindings(w);
 
 		std::filesystem::path index = std::filesystem::path(ASSETS_DIR) / "index.html";
 		std::string url = file_url_for(index);
@@ -63,6 +64,7 @@ int main() {
 	return 0;
 }
 
+// THIS FUNCTION WILL BE REMOVED ONCE ALL THE RENDERING LOGIC IS TRANSLATED
 int main2() {
 	//engine.addScheme({"فاعل", L"#ا##"});
 	//engine.addScheme({"مفعول", L"م##و#"});
