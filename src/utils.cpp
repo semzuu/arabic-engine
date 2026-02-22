@@ -6,6 +6,19 @@
 #include <Tree.hpp>
 #include <MorphEngine.hpp>
 
+std::string file_url_for(const std::filesystem::path &p) {
+  auto abs = std::filesystem::absolute(p).lexically_normal();
+#ifdef _WIN32
+  // file:///C:/path/to/file
+  std::string s = "file:///" + abs.string();
+  for (auto &c : s) if (c == '\\') c = '/';
+  return s;
+#else
+  // file:///absolute/path
+  return std::string("file://") + abs.string();
+#endif
+}
+
 // since std::wstring_convert is deprecated,
 // std::wcstombs is used instead
 // based on this article:
