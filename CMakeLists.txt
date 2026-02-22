@@ -11,6 +11,13 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(webview)
 
+FetchContent_Declare(
+  picojson
+  GIT_REPOSITORY https://github.com/kazuho/picojson.git
+  GIT_TAG v1.3.0
+)
+FetchContent_MakeAvailable(picojson)
+
 include_directories(include)
 
 file(GLOB sources
@@ -20,6 +27,7 @@ file(GLOB sources
 add_executable(arabic-engine ${sources})
 set(ASSETS_DIR "${CMAKE_SOURCE_DIR}/assets/web")
 target_compile_definitions(arabic-engine PRIVATE ASSETS_DIR=\"${ASSETS_DIR}\")
+target_include_directories(arabic-engine PRIVATE ${picojson_SOURCE_DIR})
 target_link_libraries(arabic-engine PRIVATE webview::core)
 if (APPLE)
   find_library(COCOA_FRAMEWORK Cocoa)
