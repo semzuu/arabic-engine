@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Arabic Word Generator</title>
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<nav class="main-nav">
+			<div class="nav-links">
+				<a href="validator.html" class="nav-item">التحقق</a>
+				<a href="generator.html" class="nav-item active">التوليد</a>
+				<a href="manager.html" class="nav-item">الأوزان</a>
+				<a href="history.html" class="nav-item">السجل</a>
+			</div>
+		</nav>
+		<div class="container">
+			<h1>مولد الكلمات العربية</h1>
+
+			<div class="input-group">
+				<label for="rootInput">الجذر (Root)</label>
+				<input type="text" id="rootInput" placeholder="أدخل الجذر هنا..." autocomplete="off">
+			</div>
+
+			<div class="input-group">
+				<div class="scheme-list-header">
+					<label style="margin-bottom: 0;">الأوزان (Schemes)</label>
+					<button class="add-btn" onclick="addSchemeRow()" title="إضافة وزن جديد">+</button>
+				</div>
+
+				<div id="schemes-container">
+					<div class="scheme-row">
+						<select class="scheme-select">
+							<option value="" disabled selected>اختر الوزن...</option>
+							<option value="fala">فَعَلَ</option>
+							<option value="afala">أَفْعَلَ</option>
+							<option value="faala">فَاعَلَ</option>
+						</select>
+						<button class="remove-btn" onclick="removeRow(this)">✕</button>
+					</div>
+				</div>
+			</div>
+
+			<button onclick="generateWords()">توليد الكلمات</button>
+
+			<div id="results-list">
+			</div>
+		</div>
+	</body>
+</html>
