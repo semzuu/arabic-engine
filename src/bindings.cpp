@@ -46,4 +46,40 @@ void registerBindings(webview::webview &w) {
 		picojson::value ret(tree);
 		return ret.serialize();
 	});
+	w.bind("getSchemes", [](const std::string &arg) -> std::string {
+		(void)arg;
+		picojson::array schemes;
+		for (const auto &bucket : engine.schemes.getTable()) {
+			for (const auto &scheme : bucket) {
+				picojson::object obj;
+				obj["name"] = picojson::value(std::string(scheme.name));
+				obj["pattern"] = picojson::value(std::string(wstring_to_utf8(scheme.pattern)));
+				schemes.push_back(picojson::value(obj));
+			}
+		}
+		picojson::value ret(schemes);
+		return ret.serialize();
+	});
+	w.bind("generateWord", [](const std::string &arg) -> std::string {
+		picojson::array args = parse_args(arg);
+		std::string root = args[0].get<std::string>();
+		std::string scheme = args[1].get<std::string>();
+		std::wstring res = engine.generateWord(utf8_to_wstring(root), scheme, true);
+		std::string word = wstring_to_utf8(res);
+		picojson::value ret(word);
+		return ret.serialize();
+	});
+	w.bind("removeScheme", [](const std::string &arg) -> std::string {
+		picojson::array args = parse_args(arg);
+		std::string name = args[0].get<std::string>();
+		engine.schemes.remove(name);
+		return "";
+	});
+	w.bind("addScheme", [](const std::string &arg) -> std::string {
+		picojson::array args = parse_args(arg);
+		std::string name = args[0].get<std::string>();
+		std::string pattern = args[1].get<std::string>();
+		engine.addScheme({name, utf8_to_wstring(pattern)});
+		return "";
+	});
 }

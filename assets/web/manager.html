@@ -16,6 +16,26 @@
 				<a href="history.html" class="nav-item">السجل</a>
 			</div>
 		</nav>
+		<div id="patternModal" class="modal-overlay">
+			<div class="modal-box">
+				<h3>تعديل النمط</h3>
+
+				<div class="input-group">
+					<label>اسم الوزن</label>
+					<input type="text" id="modalName" placeholder="مثلاً: فاعَل">
+				</div>
+
+				<div class="input-group">
+					<label>النمط</label>
+					<input type="text" id="modalPattern" style="direction: ltr;" placeholder="f-a-a-l">
+				</div>
+
+				<div class="modal-actions">
+					<button onclick="saveModalData()">حفظ</button>
+					<button class="cancel-btn" onclick="closeModal()">إلغاء</button>
+				</div>
+			</div>
+		</div>
 		<div class="container" style="max-width: 600px;">
 			<h1>إدارة أوزان الصرف</h1>
 			<div class="form-section">
@@ -26,7 +46,7 @@
 					</div>
 					<div class="input-group" style="margin:0">
 						<label>النمط (Pattern)</label>
-						<input type="text" id="schemePattern" placeholder="f-a-a-l" style="height: 40px; direction: ltr;">
+						<input type="text" id="schemePattern" placeholder="#ا##" style="height: 40px;">
 					</div>
 					<button id="saveBtn" onclick="saveScheme()" style="height: 40px; margin: 0; padding: 0 20px;">حفظ</button>
 				</div>
@@ -40,26 +60,6 @@
 					</tr>
 				</thead>
 				<tbody id="schemeListBody">
-					<tr class="scheme-item">
-						<td>فَعَلَ</td>
-						<td><span class="pattern-tag">f-a-l-a</span></td>
-						<td>
-							<div class="action-btns">
-								<button class="edit-btn" onclick="editScheme('فَعَلَ', 'f-a-l-a')" title="تعديل">✎</button>
-								<button class="delete-btn" onclick="deleteScheme(this)" title="حذف">✕</button>
-							</div>
-						</td>
-					</tr>
-					<tr class="scheme-item">
-						<td>أَفْعَلَ</td>
-						<td><span class="pattern-tag">a-f-l-a</span></td>
-						<td>
-							<div class="action-btns">
-								<button class="edit-btn" onclick="editScheme('أَفْعَلَ', 'a-f-l-a')" title="تعديل">✎</button>
-								<button class="delete-btn" onclick="deleteScheme(this)" title="حذف">✕</button>
-							</div>
-						</td>
-					</tr>
 				</tbody>
 			</table>
 		</div>
