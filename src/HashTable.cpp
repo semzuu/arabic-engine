@@ -35,13 +35,11 @@ Scheme* HashTable::find(const std::string& name) {
 		if (s.name == name) return &s;
 	return nullptr;
 }
-// This function was added for debugging purposes
+// Show available schemes
 void HashTable::show() {
-	int i = 0;
 	for (const auto& bucket : table) {
-		std::cout << "Hash: " << i++ << std::endl;
 		for (const auto& e : bucket) {
-			std::cout << "Scheme Name: " << e.name << std::endl;
+			std::cout << "- " << e.name << std::endl;
 		}
 	}
 }

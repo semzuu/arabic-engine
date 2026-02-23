@@ -14,7 +14,7 @@ void MorphEngine::addScheme(const Scheme& s) {
 	//schemes.show();
 }
 // Generate a new from a giving root and scheme
-std::wstring MorphEngine::generateWord(const std::wstring& root, const std::string& schemeName) {
+std::wstring MorphEngine::generateWord(const std::wstring& root, const std::string& schemeName, bool updateRoots) {
 	Scheme* s = schemes.find(schemeName);
 	if (!s) return L"Scheme Not Found!";
 	std::wstring result = s->pattern;
@@ -31,11 +31,13 @@ std::wstring MorphEngine::generateWord(const std::wstring& root, const std::stri
 		insertRoot(r);
 		p = roots.search(r);
 	}
-	// Update the root derivatives list 
-	std::string res = converter.to_bytes(result);	
-	auto& d = p->derivatives;
-	if (std::find(d.begin(), d.end(), res) == d.end()) {
-		d.push_back(res);
+	if (updateRoots) {
+		// Update the root derivatives list 
+		std::string res = converter.to_bytes(result);	
+		auto& d = p->derivatives;
+		if (std::find(d.begin(), d.end(), res) == d.end()) {
+			d.push_back(res);
+		}
 	}
 	return result;
 }
@@ -44,7 +46,7 @@ std::list<std::wstring> MorphEngine::generateAllWords(const std::wstring& root) 
 	std::list<std::wstring> result;
 	for (const auto& bucket : schemes.getTable()) {
 		for (const auto& e : bucket) 
-			result.push_back(MorphEngine::generateWord(root, e.name));
+			result.push_back(MorphEngine::generateWord(root, e.name, false));
 	}
 	return result;	
 }
