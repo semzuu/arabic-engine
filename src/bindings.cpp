@@ -30,4 +30,20 @@ void registerBindings(webview::webview &w) {
 		picojson::value ret(isValid);
 		return ret.serialize();
 	});
+	w.bind("getRoots", [](const std::string &arg) -> std::string {
+		(void)arg;
+		picojson::array tree;
+		for (Root root: engine.roots) {
+			picojson::object obj;
+			obj["root"] = picojson::value(std::string(root.value));
+			picojson::array deriv;
+			for (const auto d: root.derivatives) {
+				deriv.push_back(picojson::value(std::string(d)));
+			}
+			obj["derivatives"] = picojson::value(deriv);
+			tree.push_back(picojson::value(obj));
+		}
+		picojson::value ret(tree);
+		return ret.serialize();
+	});
 }
