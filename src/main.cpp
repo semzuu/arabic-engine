@@ -48,6 +48,8 @@ int WINAPI WinMain(HINSTANCE /*hInst*/, HINSTANCE /*hPrevInst*/,
 int main() {
 #endif
 	try {
+		engine.addScheme({"فاعل", L"#ا##"});
+		engine.addScheme({"مفعول", L"م##و#"});
 		webview::webview w(true, nullptr);
 		w.set_title("Arabic Morphological Engine");
 		w.set_size(800, 600, WEBVIEW_HINT_NONE);
