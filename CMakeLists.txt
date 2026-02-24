@@ -1,7 +1,23 @@
 cmake_minimum_required(VERSION 3.10)
 project(arabic-engine LANGUAGES CXX)
+include(FetchContent)
 
 set(CMAKE_CXX_STANDARD 17)
+
+FetchContent_Declare(
+  webview
+  GIT_REPOSITORY https://github.com/webview/webview.git
+  GIT_TAG 0.12.0
+)
+FetchContent_MakeAvailable(webview)
+
+FetchContent_Declare(
+  picojson
+  GIT_REPOSITORY https://github.com/kazuho/picojson.git
+  GIT_TAG v1.3.0
+)
+FetchContent_MakeAvailable(picojson)
+
 include_directories(include)
 
 file(GLOB sources
@@ -9,8 +25,18 @@ file(GLOB sources
 )
 
 add_executable(arabic-engine ${sources})
+set(ASSETS_DIR "${CMAKE_SOURCE_DIR}/assets/web")
+target_compile_definitions(arabic-engine PRIVATE ASSETS_DIR=\"${ASSETS_DIR}\")
+target_include_directories(arabic-engine PRIVATE ${picojson_SOURCE_DIR})
+target_link_libraries(arabic-engine PRIVATE webview::core)
+if (APPLE)
+  find_library(COCOA_FRAMEWORK Cocoa)
+  target_link_libraries(arabic-engine PRIVATE ${COCOA_FRAMEWORK})
+endif()
+
 set(DATA_DIR ${CMAKE_SOURCE_DIR}/data)
 target_compile_definitions(arabic-engine PRIVATE DATA_DIR=\"${DATA_DIR}\")
+
 
 enable_testing()
 
@@ -30,4 +56,3 @@ add_executable(test_tree
 add_test(NAME EngineTest COMMAND test_engine)
 add_test(NAME HashTest COMMAND test_hashtable)
 add_test(NAME TreeImplTest COMMAND test_tree)
-
