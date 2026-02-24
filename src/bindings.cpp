@@ -6,24 +6,16 @@
 
 extern MorphEngine engine;
 
-inline picojson::array parse_args(const std::string &arg) {
-	picojson::value v;
-	std::string err = picojson::parse(v, arg);
-	if (!err.empty()) throw std::runtime_error(err);
-
-	return v.get<picojson::array>();
-}
-
 void registerBindings(webview::webview &w) {
 	// bound functions take a JSON string as arg and should return JSON as return value
 	w.bind("hi", [](const std::string &arg) -> std::string {
-		picojson::array args = parse_args(arg);
+		picojson::array args = parse_json_args(arg);
 		std::cout << "ma5rout ya " << args[0].get<std::string>() << std::endl;
 		return "";
 	});
 
 	w.bind("validateWordFromRoot", [](const std::string &arg) -> std::string {
-		picojson::array args = parse_args(arg);
+		picojson::array args = parse_json_args(arg);
 		std::string root = args[0].get<std::string>();
 		std::string word = args[1].get<std::string>();
 		bool isValid = engine.validateWord(utf8_to_wstring(word), utf8_to_wstring(root));
@@ -61,7 +53,7 @@ void registerBindings(webview::webview &w) {
 		return ret.serialize();
 	});
 	w.bind("generateWord", [](const std::string &arg) -> std::string {
-		picojson::array args = parse_args(arg);
+		picojson::array args = parse_json_args(arg);
 		std::string root = args[0].get<std::string>();
 		std::string scheme = args[1].get<std::string>();
 		std::wstring res = engine.generateWord(utf8_to_wstring(root), scheme, true);
@@ -70,13 +62,13 @@ void registerBindings(webview::webview &w) {
 		return ret.serialize();
 	});
 	w.bind("removeScheme", [](const std::string &arg) -> std::string {
-		picojson::array args = parse_args(arg);
+		picojson::array args = parse_json_args(arg);
 		std::string name = args[0].get<std::string>();
 		engine.schemes.remove(name);
 		return "";
 	});
 	w.bind("addScheme", [](const std::string &arg) -> std::string {
-		picojson::array args = parse_args(arg);
+		picojson::array args = parse_json_args(arg);
 		std::string name = args[0].get<std::string>();
 		std::string pattern = args[1].get<std::string>();
 		engine.addScheme({name, utf8_to_wstring(pattern)});
