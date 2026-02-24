@@ -9,6 +9,8 @@ file(GLOB sources
 )
 
 add_executable(arabic-engine ${sources})
+set(DATA_DIR ${CMAKE_SOURCE_DIR}/data)
+target_compile_definitions(arabic-engine PRIVATE DATA_DIR=\"${DATA_DIR}\")
 
 enable_testing()
 
