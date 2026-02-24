@@ -48,8 +48,7 @@ int WINAPI WinMain(HINSTANCE /*hInst*/, HINSTANCE /*hPrevInst*/,
 int main() {
 #endif
 	try {
-		engine.addScheme({"فاعل", L"#ا##"});
-		engine.addScheme({"مفعول", L"م##و#"});
+		engine.loadSchemesFromFile(DATA_DIR "/schemes.txt");
 		webview::webview w(true, nullptr);
 		w.set_title("Arabic Morphological Engine");
 		w.set_size(800, 600, WEBVIEW_HINT_NONE);
@@ -68,9 +67,7 @@ int main() {
 
 // THIS FUNCTION WILL BE REMOVED ONCE ALL THE RENDERING LOGIC IS TRANSLATED
 int main2() {
-	//engine.addScheme({"فاعل", L"#ا##"});
-	//engine.addScheme({"مفعول", L"م##و#"});
-	bool quit = false;
+  bool quit = false;
 	int choice = 0;
 	while(!quit) {
 		mainMenu();
@@ -85,7 +82,7 @@ int main2() {
 				std::string word, root;
 				std::cout << "word > "; std::cin >> word;
 				std::cout << "root > "; std::cin >> root;
-				if (engine.validateWord(utf8_to_wstring(word), utf8_to_wstring(root))) 
+				if (engine.validateWord(utf8_to_wstring(word), utf8_to_wstring(root)))
 					std::cout << "VALID" << std::endl;
 				else std::cout << "NOT VALID" << std::endl;
 				break;

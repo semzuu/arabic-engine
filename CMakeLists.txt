@@ -34,6 +34,10 @@ if (APPLE)
   target_link_libraries(arabic-engine PRIVATE ${COCOA_FRAMEWORK})
 endif()
 
+set(DATA_DIR ${CMAKE_SOURCE_DIR}/data)
+target_compile_definitions(arabic-engine PRIVATE DATA_DIR=\"${DATA_DIR}\")
+
+
 enable_testing()
 
 add_executable(test_hashtable 
