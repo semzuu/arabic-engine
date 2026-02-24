@@ -6,20 +6,29 @@
 
 struct Node {
 	Root data;
+	int height;
 	Node *left, *right;
 };
 
+// Implementation of the AVL tree was using this:
+// https://www.youtube.com/watch?v=XeYQ2jSa2cI
 class Tree {
 private:
+	void print_impl(Node *node, std::string prefix, bool isLeft);
 	Node *insert_impl(Node *node, const std::string& value);
-	Node *search_impl(Node *node, const std::string& value);
+	int height(Node *node);
+	int balanceFactor(Node *node);
+	Node *rotateRight(Node *z);
+	Node *rotateLeft(Node *z);
+	Node *rotateLeftRight(Node *z);
+	Node *rotateRightLeft(Node *z);
+	Node *rebalance(Node *node);
 public:
 	Node *root;
 	Tree();
 	void insert(const std::string& value);
 	Root *search(const std::string& value);
 	void print();
-	void print_impl(Node *node, std::string prefix, bool isLeft);
 
 	// Iterator Implemntatino
 	// This iterator implementation iterates over the tree
