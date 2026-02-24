@@ -63,8 +63,7 @@ void print(Node *node) {
 
 int main() {
 	MorphEngine engine;
-	//engine.addScheme({"فاعل", L"#ا##"});
-	//engine.addScheme({"مفعول", L"م##و#"});
+	engine.loadSchemesFromFile(DATA_DIR "/schemes.txt");
 	bool quit = false;
 	int choice = 0;
 	while(!quit) {
@@ -78,7 +77,7 @@ int main() {
 				std::string word, root;
 				std::cout << "word > "; std::cin >> word;
 				std::cout << "root > "; std::cin >> root;
-				if (engine.validateWord(utf8_to_wstring(word), utf8_to_wstring(root))) 
+				if (engine.validateWord(utf8_to_wstring(word), utf8_to_wstring(root)))
 					std::cout << "VALID" << std::endl;
 				else std::cout << "NOT VALID" << std::endl;
 				break;
