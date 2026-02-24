@@ -96,7 +96,6 @@ async function generateWords() {
 	}
 
 	const results = await Promise.all(selectedSchemes.map(async (scheme) => {
-		console.log("scheme", scheme);
 		const word = await generateWord(root, scheme);
 		return `كلمة '${word}' من وزن '${scheme}' للجذر '${root}'`;
 	}))
@@ -151,7 +150,6 @@ async function renderSchemes() {
 	});
 }
 
-// Updated delete handler to work with your data logic
 async function handleDelete(name) {
 	if (confirm(`هل أنت متأكد من حذف الوزن "${name}"؟`)) {
 		await removeScheme(name);

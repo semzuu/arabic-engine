@@ -47,7 +47,6 @@ void MorphEngine::loadSchemesFromFile(const std::string& filename) {
 				Scheme new_scheme;
 				new_scheme.name = name;
 				new_scheme.pattern = pattern;
-				std::cout << "New Scheme: " << new_scheme.name << std::endl;
 				addScheme(new_scheme);
 		    }
 		}
