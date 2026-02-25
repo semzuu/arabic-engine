@@ -10,8 +10,6 @@ struct Node {
 	Node *left, *right;
 };
 
-// Implementation of the AVL tree was using this:
-// https://www.youtube.com/watch?v=XeYQ2jSa2cI
 class Tree {
 private:
 	void print_impl(Node *node, std::string prefix, bool isLeft);

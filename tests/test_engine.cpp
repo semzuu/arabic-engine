@@ -6,10 +6,6 @@
 int main() {
 	// Insert some roots
 	MorphEngine engine;	
-	//engine.insertRoot("كتب");
-	//engine.insertRoot("خرط");
-	//engine.insertRoot("عصب");
-	//engine.insertRoot("نكح");
 	// 1 - Trying to generate a word before providing the scheme	
 	std::cout << "<---Generate a word before giving the scheme--->" << std::endl;
 	std::wstring tmp1 = engine.generateWord(L"كتب", "مفعول", true);
@@ -20,11 +16,11 @@ int main() {
 	engine.addScheme({"مفعول", L"م##و#"});
 	engine.addScheme({"فاعل", L"#ا##"});
 	
-	std::wstring word1 = engine.generateWord(L"خرط", "مفعول", true);
-	assert(word1 == L"مخروط");
+	std::wstring word1 = engine.generateWord(L"قتل", "مفعول", true);
+	assert(word1 == L"مقتول");
 		
-	std::wstring word2 = engine.generateWord(L"عصب", "مفعول", true);
-	assert(word2 == L"معصوب");
+	std::wstring word2 = engine.generateWord(L"نظر", "مفعول", true);
+	assert(word2 == L"منظور");
 
 	engine.roots.print(); // Print Tree
 	// 3 - Testing word validation
